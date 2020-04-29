@@ -12,6 +12,14 @@ public class User {
 
     private Date created_date;
 
+    public User(){}
+
+    public User(String id,String name,Date created_date){
+        this.id=id;
+        this.name=name;
+        this.created_date=created_date;
+    }
+
     public String getId() {
         return id;
     }
@@ -41,8 +49,7 @@ public class User {
         return "User{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", created_date=" + created_date +
                 '}';
     }
-
-
 }
