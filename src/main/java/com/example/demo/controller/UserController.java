@@ -18,7 +18,6 @@ public class UserController {
 
    @RequestMapping(value = "/register")
    public RedirectView  register(User user){
-       System.out.println(user);
        Optional<User> u1=userRepository.findById(user.getId());
        RedirectView redirectView = new RedirectView();
        if(u1.isEmpty()){
@@ -45,4 +44,5 @@ public class UserController {
            return redirectView;
        }
    }
+
 }
