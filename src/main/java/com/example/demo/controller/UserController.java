@@ -2,34 +2,47 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
-@Controller
-@RequestMapping("/user")
+@RestController
+@RequestMapping("/atm")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-   @RequestMapping(value = "/create-user")
-   @ResponseBody
-   public String createUser(User user){
+   @RequestMapping(value = "/register")
+   public RedirectView  register(User user){
        System.out.println(user);
-       userRepository.save(user);
-       return "Login.html";
+       Optional<User> u1=userRepository.findById(user.getId());
+       RedirectView redirectView = new RedirectView();
+       if(u1.isEmpty()){
+           userRepository.save(user);
+           redirectView.setUrl("http://localhost:8080/Login.html");
+           return redirectView;
+       }else{
+           redirectView.setUrl("http://localhost:8080/SignUp.html");
+           return redirectView;
+       }
    }
 
    @RequestMapping("/login")
-   public void login(
+   public RedirectView login(
        @RequestParam String id
    ){
+       RedirectView redirectView = new RedirectView();
        Optional<User> user=userRepository.findById(id);
-       System.out.println(user);
+       if (user.isEmpty()){
+           redirectView.setUrl("http://localhost:8080/SignUp.html");
+           return redirectView;
+       }else{
+           redirectView.setUrl("http://localhost:8080/Transaction_Type.html");
+           return redirectView;
+       }
    }
 }
