@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+    <script src="http://malsup.github.com/jquery.form.js"></script>
 </head>
 <body>
-<form  method="post" action="/atm/register"  id="form2" >
+<form  method="post" id="form2" >
     <label for="exp">Enter the Name:</label><br>
     <input type="text" id="exp" name="name"><br><br>
     <label for="id">Enter the id:</label><br>
@@ -14,6 +16,24 @@
 
 <button type="submit" form="form2" value="Submit">Ok</button>
 <br><br>
+
+
+<script>
+    $('#form2')
+        .ajaxForm({
+            url : '/atm/register', // url
+            dataType : 'json',
+            success : function (response) {
+                alert(response);
+                document.getElementById("exp").value="";
+                document.getElementById("id").value="";
+                },
+            error : function (response) {
+                alert(JSON.parse(response["responseText"]).errorMessage);
+            }
+        })
+    ;
+</script>
 
 </body>
 </html>

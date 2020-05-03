@@ -1,56 +1,77 @@
 package com.example.demo.controller;
+
+import com.example.demo.exception.LoginFailure;
+import com.example.demo.exception.RegistrationFailure;
+import com.example.demo.model.Account;
 import com.example.demo.model.User;
+import com.example.demo.repositories.AccountRepository;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.Calendar;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import java.util.Date;
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/atm")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-   @RequestMapping(value = "/register")
-   public RedirectView  register(
-           @RequestParam String id,
-           @RequestParam String name
-   ){
-       User user=new User(id, name, new Date());
-       Optional<User> u1=userRepository.findById(user.getId());
-       RedirectView redirectView = new RedirectView();
-       if(u1.isEmpty()){
-           userRepository.save(user);
-           redirectView.setUrl("http://localhost:8080/Login.html");
-           redirectView.addStaticAttribute("user", user);
-           return redirectView;
-       }else{
-           redirectView.setUrl("http://localhost:8080/SignUp.html");
-           return redirectView;
-       }
-   }
+    @Autowired
+    private AccountRepository accountRepository;
 
-   @RequestMapping("/login")
-   public RedirectView login(
-       @RequestParam String id
-   ){
-       RedirectView redirectView = new RedirectView();
-       Optional<User> user=userRepository.findById(id);
-       System.out.println(user);
-       if (user.isEmpty()){
-           redirectView.setUrl("http://localhost:8080/SignUp.html");
-           return redirectView;
-       }else{
-           redirectView.setUrl("http://localhost:8080/Transaction_Type.html");
-           redirectView.addStaticAttribute("user", user);
-           return redirectView;
+    @RequestMapping("/register")
+    @ResponseBody
+    public boolean register(
+            @RequestParam String id,
+            @RequestParam String name
+    ) throws RegistrationFailure {
+       boolean isValid=checkIfValid(id, name);
+       if (!isValid){
+           throw new RegistrationFailure("please Dont enter the empty value");
        }
-   }
+        Optional<User> u=userRepository.findById(id);
+        if (u.isEmpty()){
+            User user = new User(id, name, new Date());
+            userRepository.save(user);
+            Account ac=new Account(id);
+            accountRepository.save(ac);
+        }else{
+            throw new RegistrationFailure("please enter new user id");
+        }
+
+        return true;
+
+    }
+
+    public boolean checkIfValid(String id,String name){
+        if (name.isEmpty() || id.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    @RequestMapping("/login")
+    public ModelAndView login(
+            @RequestParam String id
+    ) throws LoginFailure {
+
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()){
+            throw new LoginFailure("please enter the correct id");
+        }else{
+            ModelAndView mv=new ModelAndView();
+            Account account_of_user=accountRepository.findByUserId(id);
+            mv.setViewName("Transaction_Type");
+            mv.addObject("balance",account_of_user.getAmount());
+            mv.addObject("user",user);
+            return mv;
+        }
+    }
 }

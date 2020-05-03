@@ -2,18 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>Login</title>
+
 </head>
 <body>
 
-<form  method="post" action="/atm/login"  id="form2" >
+<form  method="post" action="/atm/login" id="form2" >
 <label for="id">Enter the id:</label><br>
 <input type="text" id="id" name="id"><br><br>
 </form>
 <button type="submit" form="form2" value="Submit">login</button>
 <br><br>
 
-<a href="SignUp.html">Sign Up</a>
+<a href="SignUp.html">Sig
+    n Up</a>
+
+<!--<script>-->
+<!--    $('#form2')-->
+<!--        .ajaxForm({-->
+<!--            url : '/atm/login', // url-->
+<!--            dataType : 'json',-->
+<!--            success : function (response) {-->
+<!--                console.log(response);-->
+<!--                console.log(response.id);-->
+<!--                localStorage.setItem("user_id",response.id);-->
+<!--                window.open("http://localhost:8080/Transaction_Type.html","_blank")-->
+<!--            },-->
+<!--            error : function (response) {-->
+<!--                console.log(response)-->
+<!--            }-->
+<!--        })-->
+<!--    ;-->
+<!--    console.log("Hello");-->
+<!--</script>-->
 
 </body>
 </html>

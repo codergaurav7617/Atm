@@ -1,13 +1,14 @@
 package com.example.demo.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
 public class User {
     @Id
      private String id;
-
+     @NotEmpty
     private String name;
 
     private Date created_date;

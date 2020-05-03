@@ -1,39 +1,55 @@
 package com.example.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 
 @Entity
 public class Account {
     @Id
-    private String account_id;
+    @GeneratedValue
+    private int accountId;
 
-    private String user_id;
+    private String userId;
 
-    private float amount;
+    private double amount=0.0;
 
-    public String getAccount_id() {
-        return account_id;
+    public Account(){};
+
+    public Account(String userId){
+        this.userId=userId;
     }
 
-    public void setAccount_id(String account_id) {
-        this.account_id = account_id;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public float getAmount() {
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
-        this.amount = amount;
+    public void setAmount(double amount) {
+        this.amount += amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", userId='" + userId + '\'' +
+                ", amount=" + amount +
+                '}';
     }
 }

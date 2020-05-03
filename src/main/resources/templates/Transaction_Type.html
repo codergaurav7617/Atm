@@ -1,25 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home_Screen</title>
 </head>
 <body>
+<span>Total balance is </span>
+<span th:text="${balance}"></span>
+<br><br>
+<form  method="post" action="/transaction/home"  id="form2" >
 
-<form  method="post" action="/user/create-user"  id="form2" >
+    <input type="hidden" th:value="${user.get().getId()}" name="user_id" />
+
     <input type="radio" id="withdraw" name="type" value="withdraw">
+
     <label for="withdraw">Withdraw</label><br>
+
     <input type="radio" id="deposit" name="type" value="Deposit">
+
     <label for="deposit">Deposit</label><br>
+
     <br>
+
     <label for="amount">Enter the Amount:</label><br>
-    <input type="number" id="amount" name="amount"><br>
+
+    <input type="text" id="amount" name="amount"><br>
 
     <label for="comment">Comment:</label><br>
+
     <input type="text" id="comment" name="comment"><br><br>
 </form>
-
 <button type="submit" form="form2" value="Ok">Ok</button>
+
+<br><br>
+
+<form method="post" action="/transaction/history">
+    <input type="hidden" th:value="${user.get().getId()}" name="user_id" />
+    <button>History</button>
+</form>
+
 <br><br>
 
 </body>

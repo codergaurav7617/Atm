@@ -1,20 +1,33 @@
 package com.example.demo.model;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 @Entity
 public class Transaction_History {
    @Id
+   @GeneratedValue
    private int txn_id;
 
-   private String user_id;
+   private String userId;
 
-   private float amount;
+   private double amount;
 
    private Date time_stamp;
 
+    private String comment;
+
    private String txn_type;
+
+   public Transaction_History(){}
+
+   public Transaction_History(String user_id,double amount,Date time_stamp,String comment,String txn_type){
+       this.userId=user_id;
+       this.amount=amount;
+       this.time_stamp=time_stamp;
+       this.txn_type=txn_type;
+       this.comment=comment;
+   }
 
     public int getTxn_id() {
         return txn_id;
@@ -25,18 +38,18 @@ public class Transaction_History {
     }
 
     public String getUser_id() {
-        return user_id;
+        return userId;
     }
 
     public void setUser_id(String user_id) {
-        this.user_id = user_id;
+        this.userId = user_id;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -54,5 +67,26 @@ public class Transaction_History {
 
     public void setTxn_type(String txn_type) {
         this.txn_type = txn_type;
+    }
+
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Transaction_History{" +
+                "txn_id=" + txn_id +
+                ", user_id='" + userId + '\'' +
+                ", amount=" + amount +
+                ", time_stamp=" + time_stamp +
+                ", txn_type='" + txn_type + '\'' +
+                '}';
     }
 }
