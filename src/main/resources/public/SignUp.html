@@ -16,7 +16,7 @@
 
 <button type="submit" form="form2" value="Submit">Ok</button>
 <br><br>
-
+<a href="Login.html">Login</a>
 
 <script>
     $('#form2')
@@ -24,7 +24,7 @@
             url : '/atm/register', // url
             dataType : 'json',
             success : function (response) {
-                alert(response);
+                alert("Registration successful");
                 document.getElementById("exp").value="";
                 document.getElementById("id").value="";
                 },

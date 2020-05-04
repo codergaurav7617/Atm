@@ -36,13 +36,13 @@ public class TransactionController {
                     comment,
                     type
         );
+
         setBalanceOfUser(user_id, type, amount);
         transactionRepository.save(th);
         ModelAndView mv=new ModelAndView();
         mv.setViewName("success");
         return mv;
     }
-
 
 
     @RequestMapping("/history")
@@ -55,7 +55,6 @@ public class TransactionController {
         mv.addObject("data",th);
         return mv;
     }
-
 
 
     public void setBalanceOfUser(String user_id,String type,String balance) throws NotHavingSufficentBalance {
