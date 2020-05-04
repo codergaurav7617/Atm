@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.exception.NotHavingSufficentBalance;
 import com.example.demo.model.Account;
 import com.example.demo.model.Transaction_History;
-import com.example.demo.model.User;
 import com.example.demo.repositories.AccountRepository;
 import com.example.demo.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class TransactionController {
     private AccountRepository accountRepository;
 
     @RequestMapping("/home")
-    public void home(
+    public ModelAndView home(
             @RequestParam String type,
             @RequestParam String amount,
             @RequestParam String comment,
@@ -39,6 +38,9 @@ public class TransactionController {
         );
         setBalanceOfUser(user_id, type, amount);
         transactionRepository.save(th);
+        ModelAndView mv=new ModelAndView();
+        mv.setViewName("success");
+        return mv;
     }
 
 
