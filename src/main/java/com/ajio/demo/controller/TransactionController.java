@@ -1,10 +1,11 @@
-package com.example.demo.controller;
+package com.ajio.demo.controller;
 
-import com.example.demo.exception.NotHavingSufficentBalance;
-import com.example.demo.model.Account;
-import com.example.demo.model.Transaction_History;
-import com.example.demo.repositories.AccountRepository;
-import com.example.demo.repositories.TransactionRepository;
+import com.ajio.demo.Constant;
+import com.ajio.demo.model.Transaction_History;
+import com.ajio.demo.exception.NotHavingSufficentBalance;
+import com.ajio.demo.model.Account;
+import com.ajio.demo.repositories.AccountRepository;
+import com.ajio.demo.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
+import static com.ajio.demo.Constant.Withdraw;
 
 @RestController
 @RequestMapping("/transaction")
@@ -58,10 +60,11 @@ public class TransactionController {
 
 
     public void setBalanceOfUser(String user_id,String type,String balance) throws NotHavingSufficentBalance {
+
         double amount=Double.parseDouble(balance);
         Account account_of_user=accountRepository.findByUserId(user_id);
-        System.out.println(account_of_user);
-        if (type.equals("withdraw")){
+
+        if (type.equals(Withdraw)){
             if ( account_of_user.getAmount() < amount){
                 throw new NotHavingSufficentBalance("please enter the correct ammount");
             }else{

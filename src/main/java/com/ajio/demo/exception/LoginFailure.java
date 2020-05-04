@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package com.ajio.demo.exception;
 
 public class LoginFailure extends Exception  {
 

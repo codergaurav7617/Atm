@@ -1,4 +1,4 @@
-package com.example.demo.exception;
+package com.ajio.demo.exception;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

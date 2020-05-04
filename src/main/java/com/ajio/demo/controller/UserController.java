@@ -1,12 +1,16 @@
-package com.example.demo.controller;
-import com.example.demo.exception.LoginFailure;
-import com.example.demo.exception.RegistrationFailure;
-import com.example.demo.model.Account;
-import com.example.demo.model.User;
-import com.example.demo.repositories.AccountRepository;
-import com.example.demo.repositories.UserRepository;
+package com.ajio.demo.controller;
+import com.ajio.demo.config.JwtTokenUtil;
+import com.ajio.demo.exception.LoginFailure;
+import com.ajio.demo.model.Account;
+import com.ajio.demo.model.User;
+import com.ajio.demo.repositories.UserRepository;
+import com.ajio.demo.exception.RegistrationFailure;
+import com.ajio.demo.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +27,13 @@ public class UserController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    public AuthenticationManager manager;
+
 
     @RequestMapping("/register")
     @ResponseBody
@@ -57,20 +68,11 @@ public class UserController {
     }
 
     @RequestMapping("/login")
-    public ModelAndView login(
-            @RequestParam String id
+    public ResponseEntity<?> login(
+            @RequestBody User user
     ) throws LoginFailure {
+        try {
 
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()){
-            throw new LoginFailure("please enter the correct id");
-        }else{
-            ModelAndView mv=new ModelAndView();
-            Account account_of_user=accountRepository.findByUserId(id);
-            mv.setViewName("Transaction_Type");
-            mv.addObject("balance",account_of_user.getAmount());
-            mv.addObject("user",user);
-            return mv;
         }
     }
 }

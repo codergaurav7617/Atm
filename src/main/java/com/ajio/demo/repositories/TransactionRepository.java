@@ -1,5 +1,5 @@
-package com.example.demo.repositories;
-import com.example.demo.model.Transaction_History;
+package com.ajio.demo.repositories;
+import com.ajio.demo.model.Transaction_History;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

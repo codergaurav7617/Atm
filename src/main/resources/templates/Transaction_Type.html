@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Home_Screen</title>
+    <script type="text/javascript">
+        function EnableDisableTextBox() {
+            document.getElementById('amount').removeAttribute('disabled');
+            document.getElementById('comment').removeAttribute('disabled');
+        }
+    </script>
 </head>
 <body>
 <span>Total balance is </span>
@@ -12,11 +18,14 @@
 
     <input type="hidden" th:value="${user.get().getId()}" name="user_id" />
 
-    <input type="radio" id="withdraw" name="type" value="withdraw">
+    <input type="radio" id="view" name="type" value="view">
+    <label for="withdraw">View</label><br>
+
+    <input type="radio" id="withdraw" name="type" value="withdraw" onclick="EnableDisableTextBox()">
 
     <label for="withdraw">Withdraw</label><br>
 
-    <input type="radio" id="deposit" name="type" value="Deposit">
+    <input type="radio" id="deposit" name="type" value="Deposit" onclick="EnableDisableTextBox()">
 
     <label for="deposit">Deposit</label><br>
 
@@ -24,11 +33,11 @@
 
     <label for="amount">Enter the Amount:</label><br>
 
-    <input type="text" id="amount" name="amount"><br>
+    <input type="text" id="amount" name="amount" disabled><br>
 
     <label for="comment">Comment:</label><br>
 
-    <input type="text" id="comment" name="comment"><br><br>
+    <input type="text" id="comment" name="comment" disabled><br><br>
 </form>
 <button type="submit" form="form2" value="Ok">Ok</button>
 

@@ -1,11 +1,13 @@
-package com.example.demo.model;
+package com.ajio.demo.model;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
-public class User {
+public class User{
     @Id
      private String id;
      @NotEmpty
