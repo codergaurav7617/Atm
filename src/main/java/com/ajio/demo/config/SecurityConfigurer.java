@@ -1,10 +1,8 @@
 package com.ajio.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,9 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 
 @Configuration
 @EnableWebSecurity
@@ -25,7 +21,6 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter implements 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/SignUp").setViewName("SignUp");
     }
-
 
     @Autowired
     private DataSource dataSource;
