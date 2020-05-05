@@ -64,9 +64,11 @@ public class UserController {
     }
 
     public boolean checkIfValid(String id,String name,String password){
+
         if (name.isEmpty() || id.isEmpty() || password.isEmpty()){
             return false;
         }
+
         return true;
     }
 

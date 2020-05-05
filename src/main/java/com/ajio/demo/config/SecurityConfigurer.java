@@ -29,8 +29,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeRequests().antMatchers("atm/register").permitAll().
-                antMatchers("/SignUp.html").permitAll().
+                .authorizeRequests().antMatchers("/atm/**","/SignUp.html","/Login.html").permitAll().
                 anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
