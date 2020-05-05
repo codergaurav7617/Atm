@@ -40,6 +40,7 @@ public class UserController {
         Optional<User> u=userRepository.findById(id);
         if (u.isEmpty()){
             User user = new User(id, name, new Date(),password);
+            System.out.println(user);
             userRepository.save(user);
             Account ac=new Account(id);
             accountRepository.save(ac);
@@ -64,6 +65,6 @@ public class UserController {
             @RequestParam String userId,
             @RequestParam String password
     ) throws Exception {
-
+        System.out.println("anjnd");
     }
 }

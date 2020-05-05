@@ -1,5 +1,6 @@
 package com.ajio.demo.config;
 
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -20,6 +22,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter implements 
 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/SignUp").setViewName("SignUp");
+        registry.addViewController("/Login").setViewName("Login");
     }
 
     @Autowired
@@ -27,20 +30,35 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter implements 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/SignUp","/atm/register").permitAll().
-                anyRequest().authenticated();
+        http
+                .authorizeRequests()
+                .antMatchers("/SignUp","/atm/register","/h2-console/**").permitAll().
+                anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/Login")
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll();
+
+        http.csrf()
+                .ignoringAntMatchers("/h2-console/**");
+        http.headers()
+                .frameOptions()
+                .sameOrigin();
+
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder builder)
             throws Exception {
+        System.out.println("vdkmfdkb");
+        System.out.println(dataSource);
         builder.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery(
-                        "SELECT id,password"+
-                                "from user"+
-                                "where id = ?"
-                );
+                .usersByUsernameQuery("SELECT username, password , true FROM User where username = ?")
+                .authoritiesByUsernameQuery("SELECT username, 'ROLE_USER' FROM User where username = ?");
+
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 
@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form  method="post" action="/atm/login" id="form2" >
+<form  method="post" th:action="@{atm/login}" id="form2" >
 <label for="id">Enter the id:</label><br>
 <input type="text" id="id" name="userId"><br><br>
     <label for="pass">Enter the password:</label><br>
@@ -17,7 +17,7 @@
 <button type="submit" form="form2" value="Submit">login</button>
 <br><br>
 
-<a href="../templates/SignUp.html">Sign Up</a>
+<a href="SignUp.html">Sign Up</a>
 
 </body>
 </html>

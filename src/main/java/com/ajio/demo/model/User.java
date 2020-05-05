@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.Date;
 
 @Entity
-public class User implements UserDetails{
+public class User {
     @Id
-     private String id;
+     private String username;
      @NotEmpty
     private String name;
 
@@ -21,19 +21,15 @@ public class User implements UserDetails{
 
     public User(){}
 
-    public User(String id,String name,Date created_date,String password){
-        this.id=id;
+    public User(String username, String name, Date created_date, String password){
+        this.username = username;
         this.name=name;
         this.created_date=created_date;
         this.password=password;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setUsername(String id) {
+        this.username = id;
     }
 
     public String getName() {
@@ -55,44 +51,18 @@ public class User implements UserDetails{
     @Override
     public String toString() {
         return "User{" +
-                "id='" + id + '\'' +
+                "id='" + username + '\'' +
                 ", name='" + name + '\'' +
                 ", created_date=" + created_date +
                 '}';
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
     }
 
     public String getPassword() {
         return password;
     }
 
-    @Override
     public String getUsername() {
-        return id;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
+        return username;
     }
 
     public void setPassword(String password) {
