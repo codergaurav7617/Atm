@@ -7,7 +7,7 @@
     <script src="http://malsup.github.com/jquery.form.js"></script>
 </head>
 <body>
-<form  method="post" id="form2" >
+<form  method="post" action="/atm/register'" id="form2" >
     <label for="exp">Enter the Name:</label><br>
     <input type="text" id="exp" name="name"><br><br>
     <label for="id">Enter the user id:</label><br>
@@ -18,24 +18,6 @@
 
 <button type="submit" form="form2" value="Submit">Ok</button>
 <br><br>
-<a href="Login.html">Login</a>
-
-<script>
-    $('#form2')
-        .ajaxForm({
-            url : '/atm/register', // url
-            dataType : 'json',
-            success : function (response) {
-                alert("Registration successful");
-                document.getElementById("exp").value="";
-                document.getElementById("id").value="";
-                },
-            error : function (response) {
-                alert(JSON.parse(response["responseText"]).errorMessage);
-            }
-        })
-    ;
-</script>
 
 </body>
 </html>
