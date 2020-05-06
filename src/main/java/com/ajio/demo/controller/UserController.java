@@ -38,7 +38,7 @@ public class UserController {
        }
 
         Optional<User> u=userRepository.findById(id);
-        if (u.isEmpty()){
+        if (!u.isPresent()){
             User user = new User(id, name, new Date(),password);
             System.out.println(user);
             userRepository.save(user);
@@ -56,7 +56,6 @@ public class UserController {
         if (name.isEmpty() || id.isEmpty() || password.isEmpty()){
             return false;
         }
-
         return true;
     }
 
