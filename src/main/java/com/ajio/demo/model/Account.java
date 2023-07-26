@@ -16,6 +16,8 @@ public class Account {
 
     public Account(){};
 
+    public int acountId;
+
     public Account(String userId){
         this.userId=userId;
     }
